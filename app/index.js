@@ -12,6 +12,10 @@ class App extends React.Component {
       <div>
         And I am up and running! =]
       </div>
+      // <Nav />
+      // <Switch>
+        // <Route />
+      // </Switch>
     )
   }
 }
