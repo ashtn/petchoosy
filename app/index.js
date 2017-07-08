@@ -8,9 +8,10 @@ require('./index.css'); // everything included in the index.css will be included
 class App extends React.Component {
   render(){
     return (
-      <div>
-        And I am up and running! =] 
-      </div>
+      // <Nav />
+      // <Switch>
+        // <Route />
+      // </Switch>
     )
   }
 }
