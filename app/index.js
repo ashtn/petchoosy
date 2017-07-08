@@ -9,9 +9,6 @@ class App extends React.Component {
   render(){
     return (
       <div>[G]otchoo</div>
-      <div>
-        And I am up and running! =]
-      </div>
       // <Nav />
       // <Switch>
         // <Route />
