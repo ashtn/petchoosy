@@ -15,7 +15,7 @@ module.exports = {
     ]
   },
   devServer: {
-    histroyApiFallback: true,
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({

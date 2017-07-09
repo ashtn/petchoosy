@@ -1,26 +1,40 @@
-import React from 'react';
+var React = require('react');
+// var Link = require('react-router-dom').Link; // render anchor tag <a
+var NavLink = require('react-router-dom').NavLink; // change style of <a tag is active
 
-var NavLink = require('react-router-dom').NavLink;
+// No state or lifecycle
 
 function Nav(){
+  // exact only access this route unless the route is exactly the same
   return (
     <ul className='nav'>
       <li>
-        Home
+        <NavLink exact activeClassName='active' to='/'>
+          Home
+        </NavLink>
       </li>
       <li>
-        Sign-in
+        <NavLink activeClassName='active' to='/signup'>
+          Sign-up
+        </NavLink>
       </li>
       <li>
-        Sign-up
+        <NavLink activeClassName='active' to='/signin'>
+          Sign-in
+        </NavLink>
       </li>
       <li>
-        About
+        <NavLink activeClassName='active' to='/about'>
+          About
+        </NavLink>
       </li>
       <li>
-        Contact Us
+        <NavLink activeClassName='active' to='/contact'>
+          Contact Us
+        </NavLink>
       </li>
     </ul>
   )
 }
+
 module.exports = Nav;
