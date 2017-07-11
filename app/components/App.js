@@ -9,6 +9,8 @@ var Home = require('./Home');
 var Nav = require('./Nav');
 var SignIn = require('./SignIn');
 var SignUp = require('./SignUp');
+var PetList = require('./PetList');
+
 
 class App extends React.Component {
   render() {
@@ -22,6 +24,7 @@ class App extends React.Component {
             <Route path='/signin' component={SignIn} />
             <Route path='/about' component={About} />
             <Route path='/contact' component={ContactUs} />
+            <Route path='/find' component={PetList} />
             <Route render={ function (){
               return <p>Not Found</p>
             }} />

@@ -67,3 +67,34 @@ li {
   transform: translateY(1px);
 }
 /**********/
+
+/* Pet Preview */
+.avatar {
+  width: 150px;
+  border-radius: 50%;
+}
+
+
+.pet-types {
+  display: flex;
+  justify-content: center;
+}
+
+.pet-types li {
+  margin: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.pet-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.pet-list-item {
+  margin: 20px;
+  text-align: center;
+}
+
+.location {
+  /* text box */
+}
