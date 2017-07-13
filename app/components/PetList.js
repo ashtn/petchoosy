@@ -5,23 +5,18 @@ var Link = require('react-router-dom').Link;
 import Loading from './Loading';
 import SelectionFilter from './SelectionFilter';
 // var PetPreview = require('./PetPreview');
-// referencing Battle.js
-// referencing Popular
-
-// TODO On InputLocation
-// Render SectectPet Type
 
 function PetGrid (props){
   // this can be petPreview abstraction
-
   return (
     <ul className='pet-list'>
 
       {console.log('PetGrid props:', props)}
 
       {props.pets.map(function (pet, index){
+        // console.log('photo:', pet.media.photos.photo);
         return (
-          <li key={pet.name} className='pet-list-item'>
+          <li key={index} className='pet-list-item'>
             <ul className='space-list-items'>
               <li>
                 <img
@@ -51,10 +46,10 @@ class PetList extends React.Component {
     console.log('=== PetList constructor props', props);
     super();
     this.state = {
-      selectedAnimalType: null,
-      selectedLocation: null,
+      selectedPetType: 'all',
+      selectedLocation: ' ',
       // selectedBreed: null,
-      // selectedAge: null,
+      selectedAge: 'all',
       // selectedSex: null,
       // selectedSize: null,
       // pets: null,
@@ -64,28 +59,26 @@ class PetList extends React.Component {
   componentDidMount(props){
     console.log('=== PetList componentDidMount state:', this.state);
     console.log('=== PetList componentDidMount this.props:', this.props);
-    this.updatePetType(this.state.selectedAnimalType);
+    this.updatePetType(this.state.selectedPetType);
   }
   updatePetType(props){
     console.log('=== PetList updatePetType props:',props);
     console.log('=== PetList updatePetType state:',this.state);
 
-    if(props){
+    if(props && props.selectedLocation){
     this.setState(function (){
       return {
-      selectedLocation: props ? props : null,
-      pets: this.state.pets ? this.state.pets : null,
-      selectedAnimalType: this.state.selectedAnimalType ? this.state.selectedAnimalType : 'all'
-      // selectedBreed: this.state.selectedBreed ? this.state.selectedBreed : null,
-      // selectedAge: this.state.selectedAge ? this.sate.selectedAge : null,
-      // selectedSex: this.state.selectedSex ? this.state.selectedSex : null,
-      // selectedSize: this.state.selectedSize ? this.state.selectedSize : null,
-    }
-    console.log('newState', newState);
-    return newState
-    console.log('api this.state', this.state);
-    });
-    // QUESTION API
+        // TODO  should be props from child, if not props, it should be state
+      selectedLocation: props.selectedLocation ? props.selectedLocation: this.state.selectedLocation,
+      pets: props.pets ? props.pets : this.state.pets,
+      selectedPetType: props.selectedPetType ? props.selectedPetType : this.state.selectedPetType,
+      // selectedBreed: this.state.selectedBreed,
+      selectedAge: props.selectedAge ? props.selectedAge : this.state.selectedAge,
+      // selectedSex: this.state.selectedSex,
+      // selectedSize: this.state.selectedSize,
+    }});
+
+    // TODO send props as object to API
     api.getPets(props)
     .then((pets) => {
       this.setState(function(){
@@ -99,13 +92,15 @@ class PetList extends React.Component {
     console.log('=== Petlist render this.state', this.state);
     return (
         <div>
-            <SelectionFilter onSelectChange={this.updatePetType}/>
+            <SelectionFilter onSelectChange={this.updatePetType} selectedLocation={this.state.selectedLocation}
+            selectedPetType={this.state.selectedPetType}
+            selectedAge={this.state.selectedPetType}/>
 
             { this.state.pets ? <PetGrid pets={this.state.pets}
             onSelectChange={this.updatePetType} /> : null}
 
 
-            {(this.state.selectedLocation && !this.state.pets) &&
+            {(this.state.selectedLocation.length > 1 && !this.state.pets) &&
                <Loading text='Searching' speed={300}/> }
 
 
@@ -113,33 +108,6 @@ class PetList extends React.Component {
     )
   }
 }
-///////////////////////////////////
 
-// class ParentComponent extends.Component({
-//     getInitialState() {
-//         return {
-//             selectedLocation: '',
-//         };
-//     },
-//     handleLocation: function(locValue) {
-//         this.setState({location: locValue});
-//     },
-//
-//     render() {
-//          return (
-//                 <div className="col-sm-9" >
-//                     <SelectLanguage onSelectLanguage={this.handleLanguage}/>
-//                 </div>
-//         );
-// });
-///////////////////////////////////
+
 module.exports = PetList;
-
-// "animal=smallfurry&breed=Hamster&size=M&location=98101&sex=&age=young"
-
-// selectedAnimalType={this.state.selectedAnimalType}
-// selectedLocation={this.state.selectedLocation}
-// selectedBreed={this.state.selectedBreed}
-// selectedAge={this.state.selectedAge}
-// selectedSex={this.state.selectedSex}
-// selectedSize={this.state.selectedSize}
