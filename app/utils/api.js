@@ -38,7 +38,12 @@ module.exports = {
       petAge += props.selectedAge
     }
 
-    let url = `${baseURL}pets?${location}${petType}${petAge}`
+    let petSex = `&sex=`
+    if(props.selectedSex && props.selectedSex !== 'all'){
+      petSex += props.selectedSex
+    }
+
+    let url = `${baseURL}pets?${location}${petType}${petAge}${petSex}`
     var encodedURI = window.encodeURI(url);
 
     console.log('getPets url', url);

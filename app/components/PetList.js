@@ -50,7 +50,7 @@ class PetList extends React.Component {
       selectedLocation: ' ',
       // selectedBreed: null,
       selectedAge: 'all',
-      // selectedSex: null,
+      selectedSex: 'all',
       // selectedSize: null,
       // pets: null,
     };
@@ -74,7 +74,7 @@ class PetList extends React.Component {
       selectedPetType: props.selectedPetType ? props.selectedPetType : this.state.selectedPetType,
       // selectedBreed: this.state.selectedBreed,
       selectedAge: props.selectedAge ? props.selectedAge : this.state.selectedAge,
-      // selectedSex: this.state.selectedSex,
+      selectedSex: props.selectedSex ? props.selectedSex : this.state.selectedSex,
       // selectedSize: this.state.selectedSize,
     }});
 
@@ -94,7 +94,8 @@ class PetList extends React.Component {
         <div>
             <SelectionFilter onSelectChange={this.updatePetType} selectedLocation={this.state.selectedLocation}
             selectedPetType={this.state.selectedPetType}
-            selectedAge={this.state.selectedPetType}/>
+            selectedAge={this.state.selectedPetType}
+            selectedSex={this.state.selectedSex}/>
 
             { this.state.pets ? <PetGrid pets={this.state.pets}
             onSelectChange={this.updatePetType} /> : null}

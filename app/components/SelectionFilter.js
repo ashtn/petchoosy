@@ -5,6 +5,28 @@ import Loading from './Loading';
 import PetGrid from './PetList';
 
 
+function SelectPetSex(props){
+  console.log('SelectPetAge render props:', props);
+  var sexes = ['all', 'F', 'M'];
+  return(
+    <div>
+      <h1>Sex</h1>
+      {/* <select onChange={this.handleSelectAge.bind(this, this.onSelect)}> */}
+        <select onChange={props.onSelect.bind(this)}>
+        {sexes.map((sex, index)=>{
+          return (<option key={index} value={sex}>{sex}</option>)
+        })}
+      </select>
+    </div>
+  )
+
+}
+SelectPetSex.propTypes = {
+  selectedSex: PropTypes.string.isRequired,
+  onSelect: PropTypes.func.isRequired,
+};
+
+
 ////// NOTE Stateless component
 function SelectPetType(props){
 
@@ -186,11 +208,12 @@ class SelectionFilter extends React.Component {
       selectedLocation: props.selectedLocation,
       // selectedBreed: this.selectedBreed ? this.selectedBreed : null,
       selectedAge: props.selectedAge,
-      // selectedSex: this.selectedSex ? this.selectedSex : null,
+      selectedSex: props.selectedSex,
       // selectedSize: this.selectedSize ? this.selectedSize : null,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSelectAge = this.handleSelectAge.bind(this);
+    this.handleSelectSex = this.handleSelectSex.bind(this);
     // this.handleReset = this.handleReset.bind(this);
     // this.updatePetType = this.updatePetType.bind(this);
     // this.updateState = this.updateState.bind(this);
@@ -203,6 +226,11 @@ class SelectionFilter extends React.Component {
     this.handleSubmit(newState);
 
   }
+  handleSelectSex(event){
+    var newState = {selectedSex: event.target.value}
+    this.setState(newState);
+    this.handleSubmit(newState);
+  }
   handleSubmit(props) {
     console.log('# SelectionFilter handleSubmit props:', props);
     console.log('# SelectionFilter handleSubmit this.state: ', this.state);
@@ -211,8 +239,8 @@ class SelectionFilter extends React.Component {
       selectedLocation: props.selectedLocation ? props.selectedLocation : this.state.selectedLocation,
       selectedPetType: props.selectedPetType ? props.selectedPetType : this.state.selectedPetType,
       // selectedBreed: props.selectedBreed,
-      selectedAge: props.selectedAge ? props.selectedAge : this.state.selectedAge}
-      // selectedSex: props.selectedSex,
+      selectedAge: props.selectedAge ? props.selectedAge : this.state.selectedAge,
+      selectedSex: props.selectedSex ? props.selectedSex : this.state.selectedSex}
       // selectedSize: props.selectedSize,
     this.setState(newState
     );
@@ -271,6 +299,9 @@ class SelectionFilter extends React.Component {
 
          <SelectPetAge className='select-pet-age'
          selectedAge={this.state.selectedAge} onSelect={this.handleSelectAge} />
+
+         <SelectPetSex className='select-pet-sex'
+         selectedSex={this.state.selectedSex} onSelect={this.handleSelectSex} />
       </div>
     )
   }
