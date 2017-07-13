@@ -21,6 +21,7 @@ function PetGrid (props){
               <li>
                 <img
                   className='avatar'
+                  // TODO fix photo error 
                   src={pet.media.photos.photo[2]['$t']}
                   alt={'Avatar for' + pet.name} />
               </li>
@@ -51,7 +52,7 @@ class PetList extends React.Component {
       // selectedBreed: null,
       selectedAge: 'all',
       selectedSex: 'all',
-      // selectedSize: null,
+      selectedSize: 'all',
       // pets: null,
     };
     this.updatePetType = this.updatePetType.bind(this);
@@ -75,7 +76,7 @@ class PetList extends React.Component {
       // selectedBreed: this.state.selectedBreed,
       selectedAge: props.selectedAge ? props.selectedAge : this.state.selectedAge,
       selectedSex: props.selectedSex ? props.selectedSex : this.state.selectedSex,
-      // selectedSize: this.state.selectedSize,
+      selectedSize: props.selectedSize ? props.selectedSize : this.state.selectedSize,
     }});
 
     // TODO send props as object to API
@@ -91,11 +92,13 @@ class PetList extends React.Component {
   render() {
     console.log('=== Petlist render this.state', this.state);
     return (
+      //QUESTION is is neccessary to pass initial state in this component? inorder to update the sate of this component?
         <div>
             <SelectionFilter onSelectChange={this.updatePetType} selectedLocation={this.state.selectedLocation}
             selectedPetType={this.state.selectedPetType}
             selectedAge={this.state.selectedPetType}
-            selectedSex={this.state.selectedSex}/>
+            selectedSex={this.state.selectedSex}
+            selectedSize={this.state.selectedSize}/>
 
             { this.state.pets ? <PetGrid pets={this.state.pets}
             onSelectChange={this.updatePetType} /> : null}
