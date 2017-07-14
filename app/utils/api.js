@@ -29,7 +29,7 @@ module.exports = {
     let location = `location=${props.selectedLocation}`
 
     let petType = '&animal='
-    if(props.selectedPetType && props.selectedPetType !== 'all'){
+    if(props.selectedPetType !== 'all'){
        petType += props.selectedPetType
     }
 
@@ -58,7 +58,6 @@ module.exports = {
         console.log('getPets response.data.items',response.data);
         return response.data;
       });
-  }
-};
+}};
 
 // "animal=smallfurry&breed=Hamster&size=M&location=98101&sex=&age=young"

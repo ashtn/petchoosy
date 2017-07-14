@@ -19,10 +19,10 @@ function PetGrid (props){
           <li key={index} className='pet-list-item'>
             <ul className='space-list-items'>
               <li>
-                {pet.media.photos.photo.map(function(pic){
+                {/* {pet.media.photos.photo.map(function(pic){
                   console.log('index:',index);
                   console.log('pic:', pic['$t'])}
-                )}
+                )} */}
 
 
                 <img
@@ -62,23 +62,28 @@ class PetList extends React.Component {
       // pets: null,
     };
     this.updatePetType = this.updatePetType.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.handleLocationSubmit = this.handleLocationSubmit.bind(this);
+    this.handleSelectAge = this.handleSelectAge.bind(this);
+    this.handleSelectPetType = this.handleSelectPetType.bind(this);
+    this.handleSelectSize = this.handleSelectSize.bind(this);
+    this.handleSelectSex = this.handleSelectSex.bind(this);
   }
   componentDidMount(props){
     console.log('=== PetList componentDidMount state:', this.state);
     console.log('=== PetList componentDidMount this.props:', this.props);
-    this.updatePetType(this.state.selectedPetType);
   }
-  handleChange(event) {
+  handleLocationChange(event, props) {
     var value = event.target.value;
-    console.log('LocationInput handleChange', event.target.value);
+    // console.log('LocationInput handleChange event:', event.target.value);
+    // console.log('LocationInput handleChange props:', props);
     this.setState(function () {
       return { selectedLocation: value }
         // this.setState({value: event.target.value.toUpperCase()}); // every state mutation will have an associated handler function}
 
-    })};
-  handleSubmit(event) {
+    })
+  };
+  handleLocationSubmit(event) {
 
     console.log('^^^LocationInput handleSubmit this.state:', this.state);
     console.log('^^^LocationInput handleSubmit this.props: ',this.props);
@@ -91,8 +96,44 @@ class PetList extends React.Component {
     selectedLocation: this.state.selectedLocation }
     );
   }
+  handleSelectAge(event){
+    console.log('@-@-@ handleSelectAge x', event.target.value);
+    var newState = {selectedAge: event.target.value}
+    this.setState(newState);
+    // this.updatePetType(newState);
+  }
+  handleSelectSize(event){
+    var newState = {selectedSize: event.target.value}
+    this.setState(newState);
+    // this.updatePetType(newState);
+  }
+  handleSelectSex(event){
+    var newState = {selectedSex: event.target.value}
+    this.setState(newState);
+    // this.updatePetType(newState);
+  }
+  handleSelectPetType(event){
+
+    console.log('handleSelectPetType event:', event.target.value);
+    console.log("STATE 1:", this.state );
+
+    var petType = event.target.value
+    var newState = Object.assign({}, this.state, {selectedPetType: petType})
+    // var newState = {selectedPetType: petType}
+    // this.setState(function(state){
+    //   return { ...state, selectedPetType: petType }
+    // });
+    this.setState(newState)
+    // this.updatePetType(this.state)
+    // console.log('STATE 1:', this.state);
+    // this.setState({selectedPetType: petType})
+    // this.updatePetType
+    // console.log('STATE 2:', this.state);
+    // this.updatePetType()
+      console.log("STATE 2:", this.state );
+  }
   updatePetType(props){
-    console.log('=== PetList updatePetType props:',props);
+    console.log('=== PetList updatePetType props:',);
     console.log('=== PetList updatePetType state:',this.state);
 
     // if(props && props.selectedLocation){
@@ -109,15 +150,16 @@ class PetList extends React.Component {
     // }});
 
     // TODO send props as object to API
-    if(props && props.selectedLocation){
-    api.getPets(this.state)
+    // if(props.selectedLocation !== ' '){
+    api.getPets(props)
     .then((pets) => {
       this.setState(function(){
         return {
           pets: pets
         }
       })
-    })}}
+    })}
+
   // }
   render() {
     console.log('=== Petlist render this.state', this.state);
@@ -125,13 +167,17 @@ class PetList extends React.Component {
       //QUESTION is is neccessary to pass initial state in this component? inorder to update the sate of this component?
       // spread op.
         <div>
-            <SelectionFilter onSelectChange={this.updatePetType} selectedLocation={this.state.selectedLocation}
+            <SelectionFilter selectedLocation={this.state.selectedLocation}
             selectedPetType={this.state.selectedPetType}
-            selectedAge={this.state.selectedPetType}
+            selectedAge={this.state.selectedAge}
             selectedSex={this.state.selectedSex}
             selectedSize={this.state.selectedSize}
-            onChange={this.handleChange}
-            onSubmit ={this.handleSubmit}/>
+            onLocationChange={this.handleLocationChange}
+            onLocationSubmit ={this.handleLocationSubmit}
+            onSelectPetType={this.handleSelectPetType}
+            onSelectAge={this.handleSelectAge}
+            onSelectSize={this.handleSelectSize}
+            onSelectSex={this.handleSelectSex}/>
 
             { this.state.pets ? <PetGrid pets={this.state.pets}
             onSelectChange={this.updatePetType} /> : null}
