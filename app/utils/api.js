@@ -42,12 +42,14 @@ module.exports = {
     if(props.selectedSex && props.selectedSex !== 'all'){
       petSex += props.selectedSex
     }
+
     let petSize = `&size=`
     if(props.selectedSize && props.selectedSize !== 'all'){
       petSize += props.selectedSize
     }
 
     let url = `${baseURL}pets?${location}${petType}${petAge}${petSex}${petSize}`
+
     var encodedURI = window.encodeURI(url);
 
     console.log('getPets url', url);
