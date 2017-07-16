@@ -83,6 +83,10 @@ class PetList extends React.Component {
     this.handleSaveToBoard = this.handleSaveToBoard.bind(this);
     this.handleFav = this.handleFav.bind(this);
   }
+  // componentDidMount(props){
+  //   console.log('=== PetList componentDidMount state:', this.state);
+  //   console.log('=== PetList componentDidMount this.props:', this.props);
+  // }
   handleFav(event){
     console.log('handleFav event.target.name:', event.target.name);
     console.log('handleFav event.target.value:', event.target.value);
@@ -101,7 +105,6 @@ class PetList extends React.Component {
     var newState = Object.assign({}, this.state, savedPets);
     this.setState(()=>{newState});
   }
-
   handleSaveToBoard(event){
 
     console.log('handleSaveToBoard event.target.name', event.target.name);
@@ -130,11 +133,6 @@ class PetList extends React.Component {
       this.setState(()=>{newState});
     }
   }
-
-  // componentDidMount(props){
-  //   console.log('=== PetList componentDidMount state:', this.state);
-  //   console.log('=== PetList componentDidMount this.props:', this.props);
-  // }
   handleLocationChange(event) {
 
     var value = event.target.value;
