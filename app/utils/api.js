@@ -3,7 +3,7 @@ var axios = require('axios');
 var baseURL = "http://localhost:3000/";
 
 
-
+// TODO 
 // function getBreeds (prop) {
 //   return axios.get( url ) //+ params)
 //     .then(function (breed) {
@@ -12,14 +12,10 @@ var baseURL = "http://localhost:3000/";
 // }
 
 
-
-
 function handleError (error) {
   console.warn(error);
   return null;
 }
-
-//TODO add petType to url
 
 module.exports = {
   getPets: function (props) {
@@ -60,4 +56,4 @@ module.exports = {
       });
 }};
 
-// "animal=smallfurry&breed=Hamster&size=M&location=98101&sex=&age=young"
+// NOTE "animal=smallfurry&breed=Hamster&size=M&location=98101&sex=&age=young"
