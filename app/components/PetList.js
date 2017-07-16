@@ -79,7 +79,7 @@ class PetList extends React.Component {
 
     this.setState(function(){return newState})
   };
-  handleLocationSubmit() {
+  handleLocationSubmit(event) {
 
     event.preventDefault();
 
