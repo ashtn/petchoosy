@@ -1,12 +1,39 @@
-var React = require('react');
+import React, { Component } from 'react';
 var PropTypes = require('prop-types');
 
 function PetPreview (props){
+  // console.log('petPreview props:', props);
   return (
-    <div>
+    <div className="col-md-4">
+      <img src={props.photo} className="rounded-circle img-fluid" />
+      <h3>{props.name}</h3>
+      <p>{props.sex}</p>
+      {/* <p>{props.breed}</p> */}
+      <p>{props.age}</p>
+      <label>
+        Save to Board:
+        <input
+          name="isSaved"
+          id={props.id}
+          type="checkbox"
+          // checked={p}
+          onChange={props.onChange}
+          />
+      </label>
+      <label>
+        Fav (choose up to 4):
+        <input
+          id={props.id}
+          name="isFav"
+          type="checkbox"
+          // checked="false"
+          onChange={props.onChange}
+           />
+      </label>
 
     </div>
   )
+  return null
 }
 
 // PetPreview.propTypes = {

@@ -4,7 +4,7 @@ var api = require('../utils/api');
 var Link = require('react-router-dom').Link;
 import Loading from './Loading';
 import SelectionFilter from './SelectionFilter';
-// var PetPreview = require('./PetPreview');
+import PetPreview from './PetPreview'
 
 function PetGrid (props){
   // TODO petPreview abstraction
@@ -13,33 +13,44 @@ function PetGrid (props){
 
       {props.pets.map(function (pet, index){
 
-        if (pet.media.photos){
-        return (
-          <li key={index} className='pet-list-item'>
-            <ul className='space-list-items'>
-              <li>
-                {/* {pet.media.photos.photo.map(function(pic){
-                  console.log('index:',index);
-                  console.log('pic:', pic['$t'])}
-                )} */}
-
-
-                <img
-                  className='avatar'
-                  // TODO fix photo error
-                  src={pet.media.photos.photo[2]['$t'] ? pet.media.photos.photo[2]['$t'] : null}
-                  alt={'Avatar for' + pet.name} />
-              </li>
-              <li>@{pet.name}</li>
-              <li>
-                <a href={pet.shelter_url}>{pet.shelterName}</a>
-              </li>
-              <li>{pet.type['$t']}</li>
-              <li>{pet.city}</li>
-            </ul>
-          </li>
-        )}})}
+        return <PetPreview name={pet.name}
+          photo={pet.media ? pet.media.photos.photo[2]['$t'] : null }
+          // breed={pet.breed}
+          sex={pet.sex}
+          age={pet.age}
+          key={pet.api_id}
+          id={pet.api_id}
+          onChange={props.onChange}
+          />
+         })}
     </ul>
+        // if (pet.media.photos){
+        //   return (
+        //     <li key={index} className='pet-list-item'>
+        //       <ul className='space-list-items'>
+        //         <li>
+        //           {/* {pet.media.photos.photo.map(function(pic){
+        //             console.log('index:',index);
+        //             console.log('pic:', pic['$t'])}
+        //           )} */}
+        //
+        //
+        //           <img
+        //             className='avatar'
+        //             // TODO fix photo error
+        //             src={pet.media.photos.photo[2]['$t'] ? pet.media.photos.photo[2]['$t'] : null}
+        //             alt={'Avatar for' + pet.name} />
+        //         </li>
+        //         <li>@{pet.name}</li>
+        //         <li>
+        //           <a href={pet.shelter_url}>{pet.shelterName}</a>
+        //         </li>
+        //         <li>{pet.type['$t']}</li>
+        //         <li>{pet.city}</li>
+        //       </ul>
+        //     </li>
+        //   )}}
+        // )
   )
 }
 
@@ -57,6 +68,8 @@ class PetList extends React.Component {
       selectedAge: 'all',
       selectedSex: 'all',
       selectedSize: 'all',
+      user: 100,
+      board: { pets: [] }
       // pets: null,
     };
     this.updatePetType = this.updatePetType.bind(this);
@@ -66,7 +79,31 @@ class PetList extends React.Component {
     this.handleSelectPetType = this.handleSelectPetType.bind(this);
     this.handleSelectSize = this.handleSelectSize.bind(this);
     this.handleSelectSex = this.handleSelectSex.bind(this);
+    this.handleSaveToBoard = this.handleSaveToBoard.bind(this);
   }
+  handleSaveToBoard(event){
+    console.log('handleSaveToBoard event:', event.target);
+    console.log('handleSaveToBoard event.target.name', event.target.name);
+    console.log('handleSaveToBoard event.target.value', event.target.value);
+
+    var id = event.target.id
+    var array = this.state.board['pets']
+    // console.log(`${board['pets']}:`, board);
+
+    var newState = {}
+    if(event.target.name == 'isSaved' && event.target.value == 'on'){
+      // key = "" + id
+      array.push({[id]: 'false'})
+      }
+      console.log('array:',array);
+
+      var newState = Object.assign({}, this.state, this.state.board.pets: array)
+
+      this.setState(() => {return newState})
+    }
+    // event.target.type  //isSaved
+    // event.target.value // on
+
   // componentDidMount(props){
   //   console.log('=== PetList componentDidMount state:', this.state);
   //   console.log('=== PetList componentDidMount this.props:', this.props);
@@ -139,6 +176,7 @@ class PetList extends React.Component {
       })
     })}
   render(){
+    console.log('THIS.STATE', this.state);
     return (
       // TODO spread op.
       <div>
@@ -155,7 +193,7 @@ class PetList extends React.Component {
           onSelectSex={this.handleSelectSex}/>
 
           { this.state.pets ? <PetGrid pets={this.state.pets}
-          onSelectChange={this.updatePetType} /> : null}
+                                      onChange={this.handleSaveToBoard} /> : null}
 
           {/*  TODO fix loading bug */}
           {(this.state.selectedLocation.length === 5 && !this.state.pets) &&
