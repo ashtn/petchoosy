@@ -1,7 +1,7 @@
-Consume GC's Backend API
+Consume Petchoosy's Backend API
 
-GC UI
+Petchoosy UI
 
-GC UX
+Petchoosy UX
 
 Client Facing
