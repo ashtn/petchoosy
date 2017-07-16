@@ -21,6 +21,7 @@ function PetGrid (props){
           key={pet.api_id}
           id={pet.api_id}
           onChange={props.onChange}
+          onFavChange={props.onFavChange}
           />
          })}
     </ul>
@@ -69,7 +70,7 @@ class PetList extends React.Component {
       selectedSex: 'all',
       selectedSize: 'all',
       user: 100,
-      board: { pets: [] }
+      savedPets: []
       // pets: null,
     };
     this.updatePetType = this.updatePetType.bind(this);
@@ -80,6 +81,40 @@ class PetList extends React.Component {
     this.handleSelectSize = this.handleSelectSize.bind(this);
     this.handleSelectSex = this.handleSelectSex.bind(this);
     this.handleSaveToBoard = this.handleSaveToBoard.bind(this);
+    this.handleFav = this.handleFav.bind(this);
+  }
+  handleFav(event){
+    console.log('handleFav event.target.name:', event.target.name);
+    console.log('handleFav event.target.value:', event.target.value);
+
+    // var id = event.target.id
+    // var array = this.state.board.pets
+    //
+    // console.log('handleFav array:', array);
+    // var inBoard = false;
+    // console.log('ARRAY.LENGTH', array.length);
+    // console.log('array[][id]', array[0][id]);
+    // if( array.length > 0 ){
+    //   array.map((pet)=>{
+    //     if(pet[id]){
+    //       inBoard = true
+    //       return inBoard };
+    //   inBoard = false
+    //   return inBoard
+    // })}
+    //
+    // if (inBoard === true){
+    // if(event.target.name == 'isFav' && event.target.value == 'on'){
+    //   // key = "" + id
+    //   array.push({[id]: {isSaved: 'true', isFav: 'false'}})
+    //   }
+    //   console.log('array:',array);
+    //
+    //   // console.log(array.includes(array[id]))
+    //
+    //   // var newState = Object.assign({}, this.state.board.pets, this.state.board.pets: array)
+    //
+    //   this.forceUpdate()}
   }
   handleSaveToBoard(event){
     console.log('handleSaveToBoard event:', event.target);
@@ -87,22 +122,34 @@ class PetList extends React.Component {
     console.log('handleSaveToBoard event.target.value', event.target.value);
 
     var id = event.target.id
-    var array = this.state.board['pets']
+    // var array = this.state.board['pets']
+    var savedPets = this.state.savedPets
     // console.log(`${board['pets']}:`, board);
+    var saved = false;
+    console.log('pets Object length', savedPets.length);
 
-    var newState = {}
-    if(event.target.name == 'isSaved' && event.target.value == 'on'){
-      // key = "" + id
-      array.push({[id]: 'false'})
-      }
-      console.log('array:',array);
-
-      var newState = Object.assign({}, this.state, this.state.board.pets: array)
-
-      this.setState(() => {return newState})
+    if( savedPets.length > 0 ){
+      savedPets.map((pet)=>{
+        if(pet[id]){
+          saved = true
+          return saved };
+          return saved
+        }
+      )
     }
-    // event.target.type  //isSaved
-    // event.target.value // on
+
+    console.log('saved:', saved);
+    var newState = {}
+
+    if (!saved){
+      if(event.target.name == 'isSaved' && event.target.value == 'on'){
+
+        savedPets.push({[id]: {isSaved: 'true', isFav: 'false'}})
+        // newState = Object.assign({}, this.state, { savedPets[id]: {isSaved: 'true', isFav: 'false'}}})
+      }
+      this.forceUpdate()
+    }
+  }
 
   // componentDidMount(props){
   //   console.log('=== PetList componentDidMount state:', this.state);
@@ -193,7 +240,8 @@ class PetList extends React.Component {
           onSelectSex={this.handleSelectSex}/>
 
           { this.state.pets ? <PetGrid pets={this.state.pets}
-                                      onChange={this.handleSaveToBoard} /> : null}
+                                      onChange={this.handleSaveToBoard}
+                                      onFavChange={this.handleFav}/> : null}
 
           {/*  TODO fix loading bug */}
           {(this.state.selectedLocation.length === 5 && !this.state.pets) &&

@@ -16,7 +16,7 @@ function PetPreview (props){
           name="isSaved"
           id={props.id}
           type="checkbox"
-          // checked={p}
+          value={props[props.id] ? props[id].isSaved : null}
           onChange={props.onChange}
           />
       </label>
@@ -26,8 +26,8 @@ function PetPreview (props){
           id={props.id}
           name="isFav"
           type="checkbox"
-          // checked="false"
-          onChange={props.onChange}
+          checked={props[props.id] ? props[id].isFav : null}
+          onChange={props.onFavChange}
            />
       </label>
 
