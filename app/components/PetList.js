@@ -87,35 +87,35 @@ class PetList extends React.Component {
     console.log('handleFav event.target.name:', event.target.name);
     console.log('handleFav event.target.value:', event.target.value);
 
-    // var id = event.target.id
-    // var array = this.state.board.pets
+    var id = event.target.id
+    var savedPets = this.state.savedPets
     //
     // console.log('handleFav array:', array);
-    // var inBoard = false;
+    var saved = false;
     // console.log('ARRAY.LENGTH', array.length);
     // console.log('array[][id]', array[0][id]);
-    // if( array.length > 0 ){
-    //   array.map((pet)=>{
-    //     if(pet[id]){
-    //       inBoard = true
-    //       return inBoard };
-    //   inBoard = false
-    //   return inBoard
-    // })}
-    //
-    // if (inBoard === true){
+    if( savedPets.length > 0 ){
+      savedPets.map((pet)=>{
+        if(pet[id]){
+          pet[id].isFav = true
+      }}
+    )}
+
+    // if (saved){
     // if(event.target.name == 'isFav' && event.target.value == 'on'){
     //   // key = "" + id
     //   array.push({[id]: {isSaved: 'true', isFav: 'false'}})
     //   }
     //   console.log('array:',array);
-    //
-    //   // console.log(array.includes(array[id]))
-    //
-    //   // var newState = Object.assign({}, this.state.board.pets, this.state.board.pets: array)
-    //
-    //   this.forceUpdate()}
+
+      // console.log(array.includes(array[id]))
+
+      var newState = Object.assign({}, this.state, savedPets)
+      this.setState(()=>{newState})
+
+    // this.forceUpdate()
   }
+
   handleSaveToBoard(event){
     console.log('handleSaveToBoard event:', event.target);
     console.log('handleSaveToBoard event.target.name', event.target.name);
@@ -133,7 +133,6 @@ class PetList extends React.Component {
         if(pet[id]){
           saved = true
           return saved };
-          return saved
         }
       )
     }
@@ -144,7 +143,7 @@ class PetList extends React.Component {
     if (!saved){
       if(event.target.name == 'isSaved' && event.target.value == 'on'){
 
-        savedPets.push({[id]: {isSaved: 'true', isFav: 'false'}})
+        savedPets.push({[id]: {isSaved: true, isFav: false}})
         // newState = Object.assign({}, this.state, { savedPets[id]: {isSaved: 'true', isFav: 'false'}}})
       }
       this.forceUpdate()
