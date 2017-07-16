@@ -55,7 +55,7 @@ class PetList extends React.Component {
     super();
     this.state = {
       selectedPetType: 'all',
-      selectedLocation: ' ',
+      selectedLocation: '',
       // selectedBreed: null,
       selectedAge: 'all',
       selectedSex: 'all',
@@ -74,18 +74,13 @@ class PetList extends React.Component {
     console.log('=== PetList componentDidMount state:', this.state);
     console.log('=== PetList componentDidMount this.props:', this.props);
   }
-  handleLocationChange(event, props) {
+  handleLocationChange(event) {
     var value = event.target.value;
     // console.log('LocationInput handleChange event:', event.target.value);
     // console.log('LocationInput handleChange props:', props);
 
     var newState = Object.assign({}, this.state, { selectedLocation: value } )
     this.setState(function(){return newState})
-    // this.setState(function () {
-    //   return { selectedLocation: value }
-        // this.setState({value: event.target.value.toUpperCase()}); // every state mutation will have an associated handler function}
-    //
-    // })
   };
   handleLocationSubmit(event) {
 
@@ -99,18 +94,21 @@ class PetList extends React.Component {
   }
   handleSelectAge(event){
     console.log('@-@-@ handleSelectAge x', event.target.value);
-    var newState = {selectedAge: event.target.value}
-    this.setState(newState);
+    var value = event.target.value;
+    var newState = Object.assign({}, this.state, {selectedAge: value})
+    this.setState(newState, this.updatePetType(newState));
     // this.updatePetType(newState);
   }
   handleSelectSize(event){
-    var newState = {selectedSize: event.target.value}
-    this.setState(newState);
+    var value = event.target.value
+    var newState = Object.assign({}, this.state, {selectedSize: value})
+    this.setState(newState, this.updatePetType(newState));
     // this.updatePetType(newState);
   }
   handleSelectSex(event){
-    var newState = {selectedSex: event.target.value}
-    this.setState(newState);
+    var value = event.target.value
+    var newState = Object.assign({},this.state,{selectedSex: value})
+    this.setState(newState, this.updatePetType(newState));
     // this.updatePetType(newState);
   }
   handleSelectPetType(event){
@@ -125,7 +123,7 @@ class PetList extends React.Component {
     //   return { ...state, selectedPetType: petType }
     // });
 
-    this.setState(newState, () =>{this.updatePetType(this.state)})
+    this.setState(newState, () =>{this.updatePetType(newState)})
     // this.updatePetType(this.state)
     // console.log('STATE 1:', this.state);
     // this.setState({selectedPetType: petType})
@@ -134,6 +132,18 @@ class PetList extends React.Component {
     // this.updatePetType()
       console.log("STATE 2:", this.state );
   }
+  // componentDidUpdate(prevProps, prevState){
+  //   console.log('prevProps', prevProps);
+  //   console.log('prevState', prevState);
+  //   // api.getPets(props)
+  //   // .then((pets) => {
+  //   //   this.setState(function(){
+  //   //     return {
+  //   //       pets: pets
+  //   //     }
+  //   //   })
+  //   // })
+  // }
   updatePetType(props){
     // QUESTION componentDidUpdate() inplace of updatePetType?
     console.log('=== PetList updatePetType props:',);
