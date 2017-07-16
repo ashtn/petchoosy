@@ -15,6 +15,7 @@ function PetGrid (props){
 
       {props.pets.map(function (pet, index){
         // console.log('photo:', pet.media.photos.photo);
+        if (pet.media.photos){
         return (
           <li key={index} className='pet-list-item'>
             <ul className='space-list-items'>
@@ -39,7 +40,7 @@ function PetGrid (props){
               <li>{pet.city}</li>
             </ul>
           </li>
-        )})}
+        )}})}
     </ul>
   )
 }
@@ -77,11 +78,14 @@ class PetList extends React.Component {
     var value = event.target.value;
     // console.log('LocationInput handleChange event:', event.target.value);
     // console.log('LocationInput handleChange props:', props);
-    this.setState(function () {
-      return { selectedLocation: value }
-        // this.setState({value: event.target.value.toUpperCase()}); // every state mutation will have an associated handler function}
 
-    })
+    var newState = Object.assign({}, this.state, { selectedLocation: value } )
+    this.setState(function(){return newState})
+    // this.setState(function () {
+    //   return { selectedLocation: value }
+        // this.setState({value: event.target.value.toUpperCase()}); // every state mutation will have an associated handler function}
+    //
+    // })
   };
   handleLocationSubmit(event) {
 
@@ -90,11 +94,8 @@ class PetList extends React.Component {
 
 
     event.preventDefault();
-    this.updatePetType(
-      // NOTE this goes to the SelctionFilter handleSubmit
-    {
-    selectedLocation: this.state.selectedLocation }
-    );
+    // NOTE this goes to the SelctionFilter handleSubmit
+    this.updatePetType(this.state);
   }
   handleSelectAge(event){
     console.log('@-@-@ handleSelectAge x', event.target.value);
@@ -123,7 +124,8 @@ class PetList extends React.Component {
     // this.setState(function(state){
     //   return { ...state, selectedPetType: petType }
     // });
-    this.setState(newState)
+
+    this.setState(newState, () =>{this.updatePetType(this.state)})
     // this.updatePetType(this.state)
     // console.log('STATE 1:', this.state);
     // this.setState({selectedPetType: petType})
@@ -133,6 +135,7 @@ class PetList extends React.Component {
       console.log("STATE 2:", this.state );
   }
   updatePetType(props){
+    // QUESTION componentDidUpdate() inplace of updatePetType?
     console.log('=== PetList updatePetType props:',);
     console.log('=== PetList updatePetType state:',this.state);
 
