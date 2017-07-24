@@ -10,12 +10,16 @@ function SelectPetSize(props){
   var sizes = ['all', 'S', 'M', 'L', 'XL'];
   return(
     <div>
-      <h1>Size</h1>
-      <select onChange={props.onSelectSize}>
-        {sizes.map((size, index)=>{
-          return (<option key={index} value={size}>{size}</option>)
-        })}
-      </select>
+      <div className="form-group">
+        <div className='col-md-12'>
+          <h1>Size</h1>
+          <select onChange={props.onSelectSize} className="form-control">
+            {sizes.map((size, index)=>{
+              return (<option key={index} value={size}>{size}</option>)
+            })}
+          </select>
+        </div>
+      </div>
     </div>
   )
 
@@ -30,12 +34,16 @@ function SelectPetSex(props){
   var sexes = ['all', 'F', 'M'];
   return(
     <div>
-      <h1>Sex</h1>
-      <select onChange={props.onSelectSex}>
-        {sexes.map((sex, index)=>{
-          return (<option key={index} value={sex}>{sex}</option>)
-        })}
-      </select>
+      <div className="form-group">
+        <div className='col-md-12'>
+          <h1>Sex</h1>
+          <select onChange={props.onSelectSex} className="form-control">
+            {sexes.map((sex, index)=>{
+              return (<option key={index} value={sex}>{sex}</option>)
+            })}
+          </select>
+        </div>
+      </div>
     </div>
   )
 
@@ -49,13 +57,17 @@ function SelectPetType(props){
 
   var petTypes = ['all','smallfurry','barnyard', 'bird', 'cat', 'horse','dog', 'reptile'];
   return(
-    <div>
-      <h1>Type</h1>
-      <select onChange={props.onSelectPetType}>
-        {petTypes.map((type, index)=>{
-          return (<option key={index} value={type}>{type}</option>)
-        })}
-      </select>
+    <div className="form-group">
+      <div className='col-md-12'>
+        <h1>Type</h1>
+        <select onChange={props.onSelectPetType} className="form-control">
+          <optgroup label='Pet Type'>
+            {petTypes.map((type, index)=>{
+              return (<option key={index} value={type}>{type}</option>)
+            })}
+          </optgroup>
+        </select>
+      </div>
     </div>
   )
 }
@@ -69,12 +81,16 @@ function SelectPetAge(props){
   var ageTypes = ['all', 'baby', 'young', 'adult', 'senior'];
   return(
     <div>
-      <h1>Age</h1>
-      <select onChange={props.onSelectAge}>
-        {ageTypes.map((age, index)=>{
-          return (<option key={index} value={age}>{age}</option>)
-        })}
-      </select>
+      <div className="form-group">
+        <div className='col-md-12'>
+          <h1>Age</h1>
+          <select onChange={props.onSelectAge} className="form-control">
+            {ageTypes.map((age, index)=>{
+              return (<option key={index} value={age}>{age}</option>)
+            })}
+          </select>
+        </div>
+      </div>
     </div>
   )
 }
@@ -87,23 +103,35 @@ SelectPetAge.propTypes = {
 function LocationInput(props){
 
   return (
-    <form className='column' onSubmit={props.onLocationSubmit}>
-      <label className='header' htmlFor='selectedLocation'>{props.label}</label>
-      <input
-        id={props.id}
-        placeholder='zipcode'
-        type='text'
-        autoComplete='on'
-        onChange={props.onLocationChange}
-        value={props.selectedLocation}
-      />
-      <button
-        className='button'
-        type='submit'
-        disabled={props.selectedLocation.length === 4}>
-          Submit
-      </button>
-    </form>
+    <div className="row">
+      <div className="col-md-6">
+        <h1 className="py-3">Where would you like to meet your new pet?</h1>
+      </div>
+      <div className="col-md-6 align-self-center">
+
+        <form className='column' onSubmit={props.onLocationSubmit}>
+          <fieldset
+          className='form-group text-center'>
+            <label className='header' htmlFor='selectedLocation'>{props.label}</label>
+            <input
+              id={props.id}
+              placeholder='Enter your Zipcode ()'
+              type='text'
+              autoComplete='on'
+              onChange={props.onLocationChange}
+              value={props.selectedLocation}
+              className='form-control'
+            /></fieldset>
+          <button
+            className='btn btn-primary w-100 mx-auto btn-block'
+            type='submit'
+            disabled={props.selectedLocation.length === 4}>
+            Submit
+          </button>
+        </form>
+
+      </div>
+    </div>
   )
 }
 LocationInput.propTypes = {
