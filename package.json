@@ -4,7 +4,8 @@
   "description": "Ada C7 Capstone Project (front-end)",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "webpack-dashboard -- webpack-dev-server"
+    "start": "webpack-dashboard -- webpack-dev-server",
+    "build": "NODE_ENV='production' webpack -p"
   },
   "babel": {
     "presets": [
