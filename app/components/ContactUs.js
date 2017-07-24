@@ -5,24 +5,42 @@ class ContactUs extends React.Component {
   render() {
     return (
       <div className='home-container'>
-        <h1>Contact Us</h1>
-        <p>
-          Mei omnium elaboraret ad. Erat propriae volutpat mea ad, no illud hendrerit pri. Ne idque legendos eloquentiam duo. Ne quo inermis temporibus scriptorem, sit eu ridens epicurei qualisque, volumus legendos accommodare per ut. Clita iriure veritus vix ea, ullum dicam nostrum vim ea, his stet postulant no. Ea duo vero pertinax, at soleat altera est.
-        </p>
-        <form className='column'>
-        <label className='header'>Email</label>
-        <input />
-        <label className='header'>Message</label>
-        <textarea />
-        <button
-          className='button'
-          type='submit'>
-            Submit
-        </button>
-      </form>
+        <div className="bg-faded py-5">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-6">
+                <h1 className=" pi-item">Petchoosy</h1>
+                <p> <strong>Petchoosy, Inc.</strong>
+                  <br />1301 1st Ave.
+                  <br />Seattle, WA. 98101&nbsp;
+                  <br /> <abbr title="Phone">P:1.800-YO-MOMMAS-HOUSE</abbr>
+                  <br />
+                </p>
+              </div>
+              <div className="col-md-6">
+                <h1 className="pi-item">CONTACT</h1>
+                <form>
+                  <div className="form-group"> <label htmlFor="exampleInputEmail1">Your name</label>
+                    <input type="text" className="form-control" placeholder="Your name" /> </div>
+                  <div className="form-group"> <label htmlFor="exampleInputEmail1">Email address</label>
+                    <input type="email" className="form-control" placeholder="Enter email"/> </div>
+                  <button type="submit" className="btn btn-primary">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="section py-5 text-md-left" id="app">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12">
+                <img className="img-fluid d-block w-100" src="app/assets/pets5.jpg" /> </div>
+              </div>
+            </div>
+          </div>
       </div>
-    )
-  }
+          )
+          }
 }
 
 

@@ -87,23 +87,35 @@ SelectPetAge.propTypes = {
 function LocationInput(props){
 
   return (
-    <form className='column' onSubmit={props.onLocationSubmit}>
-      <label className='header' htmlFor='selectedLocation'>{props.label}</label>
-      <input
-        id={props.id}
-        placeholder='zipcode'
-        type='text'
-        autoComplete='on'
-        onChange={props.onLocationChange}
-        value={props.selectedLocation}
-      />
-      <button
-        className='button'
-        type='submit'
-        disabled={props.selectedLocation.length === 4}>
-          Submit
-      </button>
-    </form>
+    <div className="row">
+      <div className="col-md-6">
+        <h1 className="py-3">Where would you like to meet your new pet?</h1>
+      </div>
+      <div className="col-md-6 align-self-center">
+
+        <form className='column' onSubmit={props.onLocationSubmit}>
+          <fieldset
+          className='form-group text-center'>
+            <label className='header' htmlFor='selectedLocation'>{props.label}</label>
+            <input
+              id={props.id}
+              placeholder='Enter your Zipcode ()'
+              type='text'
+              autoComplete='on'
+              onChange={props.onLocationChange}
+              value={props.selectedLocation}
+              className='form-control'
+            /></fieldset>
+          <button
+            className='btn btn-primary w-100 mx-auto btn-block'
+            type='submit'
+            disabled={props.selectedLocation.length === 4}>
+            Submit
+          </button>
+        </form>
+
+      </div>
+    </div>
   )
 }
 LocationInput.propTypes = {
