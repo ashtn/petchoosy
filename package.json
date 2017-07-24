@@ -1,11 +1,12 @@
 {
   "name": "gc-mvp",
   "version": "1.0.0",
-  "description": "Ada C7 Capstone Project (front-end)",
+  "description": "Petchoosy",
   "main": "webpack.config.js",
   "scripts": {
     "start": "webpack-dashboard -- webpack-dev-server",
-    "build": "NODE_ENV='production' webpack -p"
+    "build": "NODE_ENV='production' webpack -p",
+    "build-and-deploy": "npm run build && s3cmd sync dist/* s3://petchoosy && echo '🚀  Deployed!'"
   },
   "babel": {
     "presets": [
