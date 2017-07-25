@@ -2,6 +2,9 @@ var React = require('react');
 var Link = require('react-router-dom').Link; // make a route transistion inside application <Link />
 var NavLink = require('react-router-dom').NavLink;
 
+// images
+var petlistcopy = require('app/assets/petlistcopy.jpg');
+
 class Home extends React.Component {
   render() {
     return (
@@ -37,10 +40,10 @@ class Home extends React.Component {
                 <NavLink to="/about" className="btn btn-outline-primary btn-lg">Learn more</NavLink>
               </div>
               <div className="col-md-5 pull-md-7 my-3">
-                <img className="img-fluid d-block" src="app/assets/petlist-copy.jpg" /> </div>
+                <img className="img-fluid d-block" src={petlistcopy} /> </div>
             </div>
-                </div>
-              </div>
+          </div>
+        </div>
       </div>
     )
   }
