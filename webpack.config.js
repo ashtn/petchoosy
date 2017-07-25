@@ -1,6 +1,7 @@
 var path = require('path'); // utilities for working with file directories
 var HtmlWebpackPlugin = require('html-webpack-plugin'); // aligns with dev dependency inside package.json // creates and index.html file and puts it inside the dist file, and includes the script in the index_bundle.js file.
 var webpack  = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var config = {
   entry: './app/index.js',
@@ -22,7 +23,8 @@ var config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'app/index.html'
-    })
+    }),
+    new ExtractTextPlugin('app/index.css')
   ]
 };
 if (process.env.NODE_ENV === 'production') {
