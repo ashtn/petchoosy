@@ -54,6 +54,18 @@ module.exports = {
         console.log('getPets response.data.items',response.data);
         return response.data;
       });
-}};
+},
+  getLogin: function(formData) {
 
-// NOTE "animal=smallfurry&breed=Hamster&size=M&location=98101&sex=&age=young"
+    console.log(formData);
+    return axios.post(`${baseURL}login`, {
+      formData
+    }) // returns promise
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }
+};

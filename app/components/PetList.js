@@ -46,7 +46,7 @@ class PetList extends React.Component {
       selectedAge: 'all',
       selectedSex: 'all',
       selectedSize: 'all',
-      user: 100,
+      userId: props.location.state.userId,
       savedPets: []
       // pets: null,
     };

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 var PropTypes = require('prop-types');
 
 function PetPreview (props){
-  console.log('petPreview props:', props);
+  // console.log('petPreview props:', props);
   return (
     <div className="col-md-4">
       <img src={props.photo} className="d-block mx-auto rounded-circle img-fluid my-3" />
@@ -10,7 +10,7 @@ function PetPreview (props){
       <p>{props.sex}</p>
       {/* <p>{props.breed}</p> */}
       <p>{props.age}</p>
-      <label>
+      <label className='checkbox-circle'>
         Save to Board:
         <input
           name="isSaved"
@@ -20,7 +20,7 @@ function PetPreview (props){
           onChange={props.onChange}
         />
       </label>
-      <label>
+      <label className='checkbox-circle'>
         Fav (choose up to 4):
         <input
           id={props.id}
