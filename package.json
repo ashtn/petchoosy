@@ -1,8 +1,8 @@
 {
-  "name": "gc-mvp",
+  "name": "petchoosy",
   "version": "1.0.0",
-  "description": "Petchoosy",
-  "main": "webpack.config.js",
+  "description": "A place for people to find their pets and pets find their people",
+  "main": "index.js",
   "scripts": {
     "start": "webpack-dashboard -- webpack-dev-server",
     "build": "NODE_ENV='production' webpack -p",
@@ -27,6 +27,7 @@
   "homepage": "https://github.com/ashtn/gc-frontend#readme",
   "dependencies": {
     "axios": "^0.16.2",
+    "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.1",
     "react-dom": "^15.6.1",
@@ -38,7 +39,6 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.4",
-    "extract-text-webpack-plugin": "^3.0.0",
     "html-webpack-plugin": "^2.29.0",
     "style-loader": "^0.18.2",
     "webpack": "^3.1.0",

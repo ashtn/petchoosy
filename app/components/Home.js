@@ -18,7 +18,7 @@ class Home extends React.Component {
                     <h4 className="text-white text-left">The place for pairing pets and people, perfectly.</h4>
                   </div>
                   <div className="col-md-6 align-self-baseline">
-                    <img className="img-fluid d-block m-0" src='app/assets/pets2.png'/>
+                    <img className="img-fluid d-block m-0" src='app/assets/pets2'/>
                   </div>
                 </div>
                 <div className="col-md-12"> </div>
@@ -30,7 +30,7 @@ class Home extends React.Component {
           <div className="container">
             <div className="row">
               <div className="col-md-12">
-                <img className="img-fluid d-block w-100" src="app/assets/pets5.jpg" /> </div>
+                <img className="img-fluid d-block w-100" src="app/assets/pets5" /> </div>
             </div>
             <div className="row">
               <div className="col-md-7 push-md-5 my-3 align-self-center">
