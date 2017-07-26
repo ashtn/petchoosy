@@ -7,51 +7,22 @@ import SelectionFilter from './SelectionFilter';
 import PetPreview from './PetPreview'
 
 function PetGrid (props){
-  // TODO petPreview abstraction
   return (
     <ul className='pet-list'>
 
-      {props.pets.map(function (pet, index){
+      { props.pets.map(function (pet, index){
 
         return <PetPreview name={pet.name}
-          photo={pet.media ? pet.media.photos.photo[2]['$t'] : null }
+          photo={ pet.media.photos ? pet.media.photos.photo[2]['$t'] : 'app/assets/placeholder.png' }
           // breed={pet.breed}
           sex={pet.sex}
           age={pet.age}
           key={pet.api_id}
           id={pet.api_id}
           onChange={props.onChange}
-          onFavChange={props.onFavChange}
-          />
-         })}
+          onFavChange={props.onFavChange} />
+      })}
     </ul>
-        // if (pet.media.photos){
-        //   return (
-        //     <li key={index} className='pet-list-item'>
-        //       <ul className='space-list-items'>
-        //         <li>
-        //           {/* {pet.media.photos.photo.map(function(pic){
-        //             console.log('index:',index);
-        //             console.log('pic:', pic['$t'])}
-        //           )} */}
-        //
-        //
-        //           <img
-        //             className='avatar'
-        //             // TODO fix photo error
-        //             src={pet.media.photos.photo[2]['$t'] ? pet.media.photos.photo[2]['$t'] : null}
-        //             alt={'Avatar for' + pet.name} />
-        //         </li>
-        //         <li>@{pet.name}</li>
-        //         <li>
-        //           <a href={pet.shelter_url}>{pet.shelterName}</a>
-        //         </li>
-        //         <li>{pet.type['$t']}</li>
-        //         <li>{pet.city}</li>
-        //       </ul>
-        //     </li>
-        //   )}}
-        // )
   )
 }
 
@@ -65,6 +36,7 @@ class PetList extends React.Component {
     this.state = {
       selectedPetType: 'all',
       selectedLocation: '',
+      locationSelected: false,
       // selectedBreed: null,
       selectedAge: 'all',
       selectedSex: 'all',
@@ -145,6 +117,10 @@ class PetList extends React.Component {
 
     event.preventDefault();
 
+    var newState = Object.assign({}, this.state, { locationSelected: true })
+
+    this.setState(function(){return newState})
+
     this.updatePetType(this.state);
   }
   handleSelectAge(event){
@@ -178,18 +154,6 @@ class PetList extends React.Component {
 
     this.setState(newState, () =>{this.updatePetType(newState)})
   }
-  // componentDidUpdate(prevProps, prevState){
-  //   console.log('prevProps', prevProps);
-  //   console.log('prevState', prevState);
-  //   // api.getPets(props)
-  //   // .then((pets) => {
-  //   //   this.setState(function(){
-  //   //     return {
-  //   //       pets: pets
-  //   //     }
-  //   //   })
-  //   // })
-  // }
   updatePetType(props){
     // QUESTION componentDidUpdate() inplace of updatePetType?
     api.getPets(props)
@@ -201,11 +165,11 @@ class PetList extends React.Component {
       })
     })}
   render(){
-    console.log('THIS.STATE', this.state);
+    console.log('PetList render() THIS.STATE:', this.state);
     return (
       // TODO spread op.
       <div>
-          <SelectionFilter selectedLocation={this.state.selectedLocation}
+        <SelectionFilter selectedLocation={this.state.selectedLocation}
           selectedPetType={this.state.selectedPetType}
           selectedAge={this.state.selectedAge}
           selectedSex={this.state.selectedSex}
@@ -215,14 +179,15 @@ class PetList extends React.Component {
           onSelectPetType={this.handleSelectPetType}
           onSelectAge={this.handleSelectAge}
           onSelectSize={this.handleSelectSize}
-          onSelectSex={this.handleSelectSex}/>
+          onSelectSex={this.handleSelectSex}
+          locationSelected={this.state.locationSelected}/>
 
-          { this.state.pets ? <PetGrid pets={this.state.pets}
-                                      onChange={this.handleSaveToBoard}
-                                      onFavChange={this.handleFav}/> : null}
+        { this.state.pets ? <PetGrid pets={this.state.pets}
+          onChange={this.handleSaveToBoard}
+          onFavChange={this.handleFav}/> : null}
 
-          {/*  TODO fix loading bug */}
-          {(this.state.selectedLocation.length === 5 && !this.state.pets) &&
+
+        {(this.state.locationSelected && !this.state.pets) &&
              <Loading text='Searching' speed={300}/> }
       </div>
     )

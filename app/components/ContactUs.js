@@ -34,7 +34,7 @@ class ContactUs extends React.Component {
           <div className="container">
             <div className="row">
               <div className="col-md-12">
-                <img className="img-fluid d-block w-100" src="app/assets/pets5" /> </div>
+                <img className="img-fluid d-block w-100" src="app/assets/pets5.png" /> </div>
             </div>
           </div>
           </div>

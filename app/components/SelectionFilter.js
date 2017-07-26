@@ -6,7 +6,6 @@ import PetGrid from './PetList';
 
 
 function SelectPetSize(props){
-  console.log('SelectPetSize render props:', props);
   var sizes = ['all', 'S', 'M', 'L', 'XL'];
   return(
     <div>
@@ -30,7 +29,6 @@ SelectPetSize.propTypes = {
 };
 
 function SelectPetSex(props){
-  console.log('SelectPetSex render props:', props);
   var sexes = ['all', 'F', 'M'];
   return(
     <div>
@@ -147,39 +145,44 @@ LocationInput.defaultProps = {
 
 
 function SelectionFilter(props){
+console.log('SelectionFilter props: ', props);
 
-  return (
+let location = null
+let filter = null
 
-    <div className='row'>
+if (!props.locationSelected){
+  return <div className='row'>
+    <LocationInput
+      className='input-location'
+      id='zipcode'
+      onLocationSubmit={props.onLocationSubmit}
+      selectedLocation={props.selectedLocation}
+      onLocationChange={props.onLocationChange} />
+  </div>
+    }else{
+      return <div className='row'>
+        <SelectPetType
+          className='select-pet-type'
+          selectedPetType={props.selectedPetType}
+          onSelectPetType={props.onSelectPetType} />
 
-      <LocationInput className='input-location'
-        id='zipcode'
-        onLocationSubmit={props.onLocationSubmit}
-        selectedLocation={props.selectedLocation}
-        onLocationChange={props.onLocationChange}
-      />
+        <SelectPetAge className='select-pet-age'
+          selectedAge={props.selectedAge}
+          onSelectAge={props.onSelectAge} />
 
+        <SelectPetSex className='select-pet-sex'
+          selectedSex={props.selectedSex}
+          onSelectSex={props.onSelectSex} />
 
-      <SelectPetType className='select-pet-type'
-        selectedPetType={props.selectedPetType}      onSelectPetType={props.onSelectPetType}
-      />
-
-      <SelectPetAge className='select-pet-age'
-        selectedAge={props.selectedAge}
-        onSelectAge={props.onSelectAge}
-      />
-
-      <SelectPetSex className='select-pet-sex'
-        selectedSex={props.selectedSex}
-        onSelectSex={props.onSelectSex}
-      />
-
-      <SelectPetSize className='select-pet-size'
-        selectedSize={props.selectedSize}
-        onSelectSize={props.onSelectSize}
-      />
-    </div>
-  )
+        <SelectPetSize className='select-pet-size'
+          selectedSize={props.selectedSize}
+          onSelectSize={props.onSelectSize} />
+      </div>
+        }
+  //       return (
+  //       location,
+  //       filter
+  // )
 }
 
 module.exports = SelectionFilter;

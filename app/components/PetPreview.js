@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 var PropTypes = require('prop-types');
 
 function PetPreview (props){
-  // console.log('petPreview props:', props);
+  console.log('petPreview props:', props);
   return (
     <div className="col-md-4">
       <img src={props.photo} className="d-block mx-auto rounded-circle img-fluid my-3" />
