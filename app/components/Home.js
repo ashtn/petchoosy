@@ -40,7 +40,7 @@ class Home extends React.Component {
                 <NavLink to="/about" className="btn btn-outline-primary btn-lg">Learn more</NavLink>
               </div>
               <div className="col-md-5 pull-md-7 my-3">
-                <img className="img-fluid d-block" src='app/assets/petlistcopy.png' /> </div>
+                <img className="img-fluid d-block" src='https://s3-us-west-2.amazonaws.com/petchoosy/assets/petlistcopy.png' /> </div>
             </div>
           </div>
         </div>
