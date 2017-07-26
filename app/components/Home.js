@@ -3,7 +3,7 @@ var Link = require('react-router-dom').Link; // make a route transistion inside 
 var NavLink = require('react-router-dom').NavLink;
 
 // images
-var petlistcopy = require('app/assets/petlistcopy.jpg');
+var petlistcopy = require('app/assets/petlistcopy');
 
 class Home extends React.Component {
   render() {
