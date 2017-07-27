@@ -4,7 +4,8 @@ var api = require('../utils/api');
 var Link = require('react-router-dom').Link;
 import Loading from './Loading';
 import SelectionFilter from './SelectionFilter';
-import PetPreview from './PetPreview'
+import PetPreview from './PetPreview';
+import { Redirect } from 'react-router';
 
 function PetGrid (props){
   return (
@@ -46,6 +47,7 @@ class PetList extends React.Component {
       selectedAge: 'all',
       selectedSex: 'all',
       selectedSize: 'all',
+      redirect: false,
       userId: props.location.state.userId,
       savedPets: []
       // pets: null,
@@ -59,12 +61,14 @@ class PetList extends React.Component {
     this.handleSelectSex = this.handleSelectSex.bind(this);
     this.handleSaveToBoard = this.handleSaveToBoard.bind(this);
     this.handleFav = this.handleFav.bind(this);
+    this.onCreatePetList = this.onCreatePetList.bind(this);
   }
   // componentDidMount(props){
   //   console.log('=== PetList componentDidMount state:', this.state);
   //   console.log('=== PetList componentDidMount this.props:', this.props);
   // }
   handleFav(event){
+    // TODO fix bug
     console.log('handleFav event.target.name:', event.target.name);
     console.log('handleFav event.target.value:', event.target.value);
 
@@ -104,7 +108,7 @@ class PetList extends React.Component {
     if (!saved){
       if(event.target.name == 'isSaved' && event.target.value == 'on'){
 
-        savedPets.push({[id]: {isSaved: true, isFav: false}});
+        savedPets.push({[id]: { pet_id: id, isSaved: true, isFav: false}});
       }
       var newState = Object.assign({}, this.state, {savedPets});
       this.setState(()=>{newState});
@@ -159,6 +163,45 @@ class PetList extends React.Component {
 
     this.setState(newState, () =>{this.updatePetType(newState)})
   }
+  onCreatePetList(event){
+    event.preventDefault();
+    console.log(this.state.savedPets);
+    console.log(this.state.userId);
+
+    let savedPets = []
+    let petObject = {}
+
+    const pets = this.state.savedPets;
+    const userId = this.state.userId;
+    const petListData = {userId, savedPets};
+
+    for(var propName in pets) {
+        if(pets.hasOwnProperty(propName)) {
+          console.log('pets:',pets);
+          console.log('propName:', propName);
+            var pet = pets[propName];
+
+            for(var key in pet){
+
+              if(pet.hasOwnProperty(key)){
+
+                savedPets.push({isFav: pet[`${key}`]['isFav'], pet_id: pet[`${key}`]['pet_id'] })
+              }
+            }
+        }
+    }
+
+    api.createPetList(petListData)
+    .then((response) =>{
+      this.setState(function(){
+        return {
+          savedPets: response.savedPets,
+          petListId: response.petListId,
+          redirect: true,
+        }
+      })
+    })
+  }
   updatePetType(props){
     // QUESTION componentDidUpdate() inplace of updatePetType?
     api.getPets(props)
@@ -170,32 +213,42 @@ class PetList extends React.Component {
       })
     })}
   render(){
-    console.log('PetList render() THIS.STATE:', this.state);
+    console.log('PETLIST.STATE:', this.state);
+    const path = `/petlist`
+    const { redirect } = this.state
+    if(redirect){
+        return <Redirect to={{      pathname:`${path}/${this.state.petListId}`,
+          state: {savedPets: this.state.savedPets, userId: this.state.userId, petListId: this.state.petListId}
+        }}/>}
+
     return (
       // TODO spread op.
-      <div>
-        <SelectionFilter selectedLocation={this.state.selectedLocation}
-          selectedPetType={this.state.selectedPetType}
-          selectedAge={this.state.selectedAge}
-          selectedSex={this.state.selectedSex}
-          selectedSize={this.state.selectedSize}
-          onLocationChange={this.handleLocationChange}
-          onLocationSubmit ={this.handleLocationSubmit}
-          onSelectPetType={this.handleSelectPetType}
-          onSelectAge={this.handleSelectAge}
-          onSelectSize={this.handleSelectSize}
-          onSelectSex={this.handleSelectSex}
-          locationSelected={this.state.locationSelected}/>
+        <div>
+          <SelectionFilter selectedLocation={this.state.selectedLocation}
+            selectedPetType={this.state.selectedPetType}
+            selectedAge={this.state.selectedAge}
+            selectedSex={this.state.selectedSex}
+            selectedSize={this.state.selectedSize}
+            onLocationChange={this.handleLocationChange}
+            onLocationSubmit ={this.handleLocationSubmit}
+            onSelectPetType={this.handleSelectPetType}
+            onSelectAge={this.handleSelectAge}
+            onSelectSize={this.handleSelectSize}
+            onSelectSex={this.handleSelectSex}
+            locationSelected={this.state.locationSelected}
+            savedPets={this.state.savedPets}
+            onSubmit={this.onCreatePetList}/>
 
-        { this.state.pets ? <PetGrid pets={this.state.pets}
-          onChange={this.handleSaveToBoard}
-          onFavChange={this.handleFav}/> : null}
+          { this.state.pets ? <PetGrid pets={this.state.pets}
+            onChange={this.handleSaveToBoard}
+            onFavChange={this.handleFav}/> : null}
 
 
-        {(this.state.locationSelected && !this.state.pets) &&
-             <Loading text='Searching' speed={300}/> }
-      </div>
-    )
+          {(this.state.locationSelected && !this.state.pets) &&
+            <Loading text='Searching' speed={300}/> }
+
+        </div>
+      )
   }
 }
 

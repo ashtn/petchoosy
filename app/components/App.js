@@ -10,7 +10,7 @@ var Nav = require('./Nav');
 var SignIn = require('./SignIn');
 var SignUp = require('./SignUp');
 var PetList = require('./PetList');
-
+var SendPetList = require('./SendPetList.js')
 
 class App extends React.Component {
   render() {
@@ -25,8 +25,9 @@ class App extends React.Component {
             <Route path='/about' component={About} />
             <Route path='/contact' component={ContactUs} />
             <Route path='/find' component={PetList} />
-            <Route render={ function (){
-              return <p>Not Found</p>
+            <Route path='/petlist' component={SendPetList} />
+              <Route render={ function (){
+                return <p>Not Found</p>
             }} />
           </Switch>
         </div>

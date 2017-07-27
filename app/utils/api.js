@@ -54,7 +54,7 @@ module.exports = {
         console.log('getPets response.data.items',response.data);
         return response.data;
       });
-},
+  },
   getLogin: function(formData) {
 
     console.log(formData);
@@ -67,5 +67,29 @@ module.exports = {
       .catch(function (error) {
         console.log(error);
       })
+  },
+  createPetList: function(petListData){
+    console.log(petListData);
+    return axios.post(`${baseURL}pet_list/`, {
+      petListData
+    })
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  },
+  getPetList: function(petListData){
+
+    console.log(petListData);
+    alert('getPetList')
+    let url = `${baseURL}pet_list/${petListData.petListId}`
+
+    var encodedURI = window.encodeURI(url);
+    return axios.get(encodedURI, {petListData})
+    .then(function (response){
+      return response.data
+    })
   }
 };

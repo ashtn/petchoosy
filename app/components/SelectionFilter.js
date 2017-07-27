@@ -177,6 +177,14 @@ if (!props.locationSelected){
         <SelectPetSize className='select-pet-size'
           selectedSize={props.selectedSize}
           onSelectSize={props.onSelectSize} />
+        <form className='column' onSubmit={props.onSubmit}>
+          <button
+            className='btn btn-primary w-100 mx-auto btn-block'
+            type='submit'
+            disabled={props.savedPets.length < 1}>
+            Create / Send
+          </button>
+        </form>
       </div>
         }
   //       return (
